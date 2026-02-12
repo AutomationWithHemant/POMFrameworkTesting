@@ -6,6 +6,7 @@ export class HomePage{
     readonly backPackAddToCartButton : Locator;
     readonly backPackRemoveButton : Locator;
     readonly cartIcon : Locator;
+    readonly dashboardTitleText : Locator;
 
     constructor(page: Page){
         this.page = page;
@@ -13,6 +14,7 @@ export class HomePage{
         this.backPackAddToCartButton = page.locator('[data-test="add-to-cart-sauce-labs-backpack"]')
         this.backPackRemoveButton = page.locator('[data-test="remove-sauce-labs-backpack"]')
         this.cartIcon = page.locator('[data-test="shopping-cart-link"]')
+        this.dashboardTitleText = page.getByRole('heading', { name: 'Dashboard' })
     }
 
     async backPackAddToCart()

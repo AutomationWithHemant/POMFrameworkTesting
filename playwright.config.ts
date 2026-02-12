@@ -1,5 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
-import dotenv from 'dotenv'
+//import dotenv from 'dotenv'
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -8,9 +8,9 @@ import dotenv from 'dotenv'
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-dotenv.config({
-  path: process.env.ENV_NAME ? `./env-files/.env.${process.env.ENV_NAME}` : `./env-files/.env.demo`
-})
+//dotenv.config({
+//  path: process.env.ENV_NAME ? `./env-files/.env.${process.env.ENV_NAME}` : `./env-files/.env.demo`
+//})
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -29,8 +29,10 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
-
+     baseURL: 'https://restful-booker.herokuapp.com',
+    extraHTTPHeaders:{
+      Accept: 'application/json',
+    },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
@@ -38,20 +40,37 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'Setup',
+      testMatch: 'global-setup.ts'
+    },
+    {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      dependencies:['Setup'],
+      use: { ...devices['Desktop Chrome'],
+        storageState:'./playwright/.auth/auth.json'
+      },
     },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      dependencies:['Setup'],
+      use: { ...devices['Desktop Firefox'],
+         storageState:'./playwright/.auth/auth.json'
+       },
     },
 
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      dependencies:['Setup'],
+      use: { ...devices['Desktop Safari'],
+         storageState:'./playwright/.auth/auth.json'
+       },
     },
-
+    {
+      name: 'apiTest',
+      testDir: './tests/api-tests',
+      testMatch: '**/*.spec.ts'
+    }
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
