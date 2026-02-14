@@ -8,13 +8,13 @@ export class LoginPage{
 
     constructor(page : Page){
         this.page = page;
-        this.usernameInputBox = page.locator("#user-name");
-        this.passwordInputBox = page.locator("id=password");
-        this.loginButton = page.locator("id=login-button");
+        this.usernameInputBox = page.locator("[name='username']");
+        this.passwordInputBox = page.locator("[name='password']");
+        this.loginButton = page.locator("[type='submit']");
     }
 
     async openApplication(){
-        await this.page.goto("https://www.saucedemo.com/");
+        await this.page.goto(`${process.env.BASE_URL}web/index.php/auth/login`);
     }
    
     async login(usernameVal: string,passwordVal: string): Promise<void>{
