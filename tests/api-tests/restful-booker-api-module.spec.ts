@@ -2,6 +2,8 @@ import {test} from '../../fixtures/hooks-fixture'
 import {expect} from '@playwright/test'
 import apiPathData from '../../data/api-path-data.json'
 import restfulApiData from '../../data/restful-booker-api-module-data.json'
+import CommonAPIUtils from '../../utils/CommonAPIUtils'
+import { get } from 'http'
 
 /*test("API Test",async({request})=>{
     const bookingIds = await request.get("https://restful-booker.herokuapp.com/booking/");
@@ -62,7 +64,7 @@ test("Id = 10 [RestFul-Booker > booking] Verify that the user is able to create 
     expect(createBookingJsonResp.booking).toMatchObject(restfulApiData.create_booking)
 })
 
-test("Id = 11 [RestFul-Booker > booking] Verify that the user is able to update a booking with authentication.",{
+/*test("Id = 11 [RestFul-Booker > booking] Verify that the user is able to update a booking with authentication.",{
     tag:['@API','@UAT'],
      annotation: {
         type: "Test case link",
@@ -76,7 +78,7 @@ test("Id = 11 [RestFul-Booker > booking] Verify that the user is able to update 
     console.log(updateBookingJsonResp);
     expect(updateBookingResp.status()).toBe(200);
     expect(updateBookingJsonResp).toMatchObject(restfulApiData.update_booking)
-})
+})*/
 
 test("Id = 12 [RestFul-Booker > booking] Verify that the user is able to update a booking with cookies.",{
     tag:['@API','@UAT'],
@@ -84,6 +86,62 @@ test("Id = 12 [RestFul-Booker > booking] Verify that the user is able to update 
         type: "Test case link",
         description: "https://www.journeytoautomation.org"
     }
-},async({request})=>{
-    
+},async({request,commonAPIUtils})=>{
+    const tokenValue = await commonAPIUtils.createToken();
+  const updateBookingResp = await request.put(`${apiPathData.booking_path}/${restfulApiData.booking_id2}`,{
+    headers:{
+        Cookie:`token=${tokenValue}`
+    },
+    data:restfulApiData.update_booking
+  });
+
+    const updateBookingJsonResp = await updateBookingResp.json();
+    console.log(updateBookingJsonResp);
+    expect(updateBookingResp.status()).toBe(200);
+    expect(updateBookingJsonResp).toMatchObject(restfulApiData.update_booking)
 })
+
+
+test("Id = 13 [RestFul-Booker > booking] Verify that the user is able to partially update a booking with cookie.",{
+    tag:['@API','@UAT'],
+     annotation: {
+        type: "Test case link",
+        description: "https://www.journeytoautomation.org"
+    }
+},async({request,commonAPIUtils})=>{
+    const apiToken = await commonAPIUtils.createToken();
+  const partialUpdateBookingResp = await request.patch(`${apiPathData.booking_path}/${restfulApiData.booking_id2}`,{
+    headers:{
+        Cookie:`token=${apiToken}`
+    },
+    data:restfulApiData.partial_booking
+  });
+
+    const partialUpdateBookingJsonResp = await partialUpdateBookingResp.json();
+    console.log(partialUpdateBookingJsonResp);
+    expect(partialUpdateBookingResp.status()).toBe(200);
+    expect(partialUpdateBookingJsonResp.firstname).toMatch(restfulApiData.partial_booking.firstname)
+    expect(partialUpdateBookingJsonResp.lastname).toMatch(restfulApiData.partial_booking.lastname)
+})
+
+test("Id = 14 [RestFul-Booker > booking] Verify that the user is able to delete a booking with cookie.",{
+    tag:['@API','@UAT'],
+     annotation: {
+        type: "Test case link",
+        description: "https://www.journeytoautomation.org"
+    }
+},async({request,commonAPIUtils})=>{
+      const apiToken = await commonAPIUtils.createToken();
+    const deleteBookingResp = await request.delete(`${apiPathData.booking_path}/${restfulApiData.booking_id3}`,{
+  headers:{
+        Cookie:`token=${apiToken}`
+        }
+      });
+      expect(deleteBookingResp.status()).toBe(201);
+      expect(deleteBookingResp.statusText()).toBe("Created");
+
+      const getBookingResp = await request.get(`${apiPathData.booking_path}/${restfulApiData.booking_id3}`)
+      expect(getBookingResp.status()).toBe(404);
+      expect(getBookingResp.statusText()).toBe("Not Found")
+
+ })

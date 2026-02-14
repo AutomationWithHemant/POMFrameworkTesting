@@ -11,7 +11,8 @@
     "test_demo_saf_hl": "cross-env ENV_NAME=demo npx playwright test --project=webkit",
     "test_demo_chr_hl": "cross-env ENV_NAME=demo npx playwright test --project=chromium",
     "test_demo_api" : "cross-env ENV_NAME=demo npx playwright test --project=apiTest",
-    "test_dev_api" : "cross-env ENV_NAME=dev npx playwright test --project=apiTest"
+    "test_dev_api" : "cross-env ENV_NAME=dev npx playwright test --project=apiTest",
+    "test_demo_ui_chr_hd_api" : "cross-env ENV_NAME=demo npx playwright test --project=chromium --headed --project=apiTest"
   },
   "keywords": [],
   "author": "",
