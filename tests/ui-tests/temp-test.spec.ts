@@ -1,4 +1,4 @@
-import {test} from '../fixtures/hooks-fixture'
+import {test} from '../../fixtures/hooks-fixture'
 
     /*test.beforeEach('Before each Hook',async({loginPage})=>{
         await loginPage.openApplication();

@@ -1,0 +1,29 @@
+{
+"content_type":"application/json; charset=utf-8",
+"booking_id" : "1114",
+"booking_id2": "1698",
+"first_name": "Mary",
+"create_booking":{
+    "firstname" : "Jim",
+    "lastname" : "Brown",
+    "totalprice" : 111,
+    "depositpaid" : true,
+    "bookingdates" : {
+        "checkin" : "2018-01-01",
+        "checkout" : "2019-01-01"
+    },
+    "additionalneeds" : "Breakfast"
+    },
+
+    "update_booking":{
+    "firstname" : "Hemant",
+    "lastname" : "Gandhi",
+    "totalprice" : 112,
+    "depositpaid" : true,
+    "bookingdates" : {
+        "checkin" : "2018-01-01",
+        "checkout" : "2019-01-01"
+    },
+    "additionalneeds" : "Breakfast"
+    }
+}

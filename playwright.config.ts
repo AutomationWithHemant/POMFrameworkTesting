@@ -1,5 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
-//import dotenv from 'dotenv'
+import dotenv from 'dotenv'
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -8,9 +8,9 @@ import { defineConfig, devices } from '@playwright/test';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-//dotenv.config({
-//  path: process.env.ENV_NAME ? `./env-files/.env.${process.env.ENV_NAME}` : `./env-files/.env.demo`
-//})
+dotenv.config({
+  path: process.env.ENV_NAME ? `./env-files/.env.${process.env.ENV_NAME}` : `./env-files/.env.demo`
+})
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -29,12 +29,15 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-     baseURL: 'https://restful-booker.herokuapp.com',
+     baseURL: process.env.API_BASE_URL,
     extraHTTPHeaders:{
       Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': "Basic YWRtaW46cGFzc3dvcmQxMjM="
+
     },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'on',
   },
 
   /* Configure projects for major browsers */
@@ -69,7 +72,7 @@ export default defineConfig({
     {
       name: 'apiTest',
       testDir: './tests/api-tests',
-      testMatch: '**/*.spec.ts'
+      //testMatch: '**/*.spec.ts'
     }
     /* Test against mobile viewports. */
     // {
