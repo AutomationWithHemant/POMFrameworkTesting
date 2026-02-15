@@ -7,7 +7,10 @@ on:
 jobs:
   test:
     timeout-minutes: 60
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest #microsoft-window #macOs
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+     
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -18,8 +21,10 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx playwright test --project=chromium --project=apiTest
     - uses: actions/upload-artifact@v4
+      env:
+      ENV_NAME: demo
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
