@@ -21,8 +21,10 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: cross-env ENV_NAME=demo npx playwright test --project=chromium --headed --project=apiTest
+      run: npx playwright test --project=chromium --project=apiTest
     - uses: actions/upload-artifact@v4
+      env:
+      ENV_NAME: demo
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
