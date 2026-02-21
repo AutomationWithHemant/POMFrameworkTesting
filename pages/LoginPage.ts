@@ -14,7 +14,7 @@ export class LoginPage{
     }
 
     async openApplication(){
-        await this.page.goto("https://www.saucedemo.com/");
+        await this.page.goto(process.env.BASE_URL!);
     }
    
     async login(usernameVal: string,passwordVal: string): Promise<void>{

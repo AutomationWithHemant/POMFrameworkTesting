@@ -9,7 +9,7 @@
     "test_demo_chr_hd": "cross-env ENV_NAME=demo npx playwright test --project=chromium --headed",
     "test_demo_saf_hd": "cross-env ENV_NAME=demo npx playwright test --project=webkit --headed",
     "test_demo_saf_hl": "cross-env ENV_NAME=demo npx playwright test --project=webkit",
-    "test_demo_chr_hl": "cross-env ENV_NAME=demo npx playwright test --project=chromium"
+    "test_demo_chr_hl": "cross-env ENV_NAME=demo npx playwright test --project=chromium --headed --debug"
   },
   "keywords": [],
   "author": "",

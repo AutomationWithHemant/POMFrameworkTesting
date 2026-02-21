@@ -1,18 +1,24 @@
-import {test} from '../fixtures/common-fixtures'
+import {test} from '../fixtures/pom-fixtures'
+//import {expect} from '@playwright/test'
+import CommonUtils from '../utils/CommonUtils';
 
-    test("Verification of cart2", async({page,loginPage,commonUtils})=>{
-    /*console.log(process.env.BASE_URL);
+test("Temp test", async({page,loginPage})=>{
+    console.log(process.env.BASE_URL);
     console.log(process.env.USER_NAME);
-    console.log(process.env.PASSWORD);*/
+    console.log(process.env.PASSWORD);
 
 
-    //const CommonUtilsObj = new CommonUtils();
-    //CommonUtilsObj.encryptData('secret_sauce')
+    const commonUtilsObj = new CommonUtils();
+    commonUtilsObj.encryptData('secret_sauce')
 
-    const decryptedUserName = commonUtils.decryptData(process.env.USER_NAME!);
-    const decryptedPassword = commonUtils.decryptData(process.env.PASSWORD!);
+    console.log(commonUtilsObj.decryptData(process.env.USER_NAME!));
+    console.log(commonUtilsObj.decryptData(process.env.PASSWORD!));
 
-
-    await loginPage.openApplication();
-    await loginPage.login(decryptedUserName,decryptedPassword);
-    })
+    //console.log(decryptedUserName)
+    //console.log(decryptedPassword)
+    //await loginPage.openApplication();
+    //console.log(await page.title());
+    //page.waitForTimeout(150000);
+    //await loginPage.login(decryptedUserName,decryptedPassword);
+    //page.waitForTimeout(1150000);
+})
