@@ -13,10 +13,6 @@ export default class CommonUtils{
         }
     }
 
-    /**
-     * Provide Encryped Data from String
-     * 
-     */
     public encryptData(data: string){
         const encryptedData = cryptoJs.AES.encrypt(data,this.secretKey).toString();
         console.log(encryptedData);
