@@ -14,6 +14,7 @@ export class HomePage{
         this.backPackRemoveButton = page.locator('[data-test="remove-sauce-labs-backpack"]')
         this.cartIcon = page.locator('[data-test="shopping-cart-link"]')
         this.pageTitle = page.locator('.title')
+        this.pageTitle = page.locator('.title')
     }
 
     async backPackAddToCart()
